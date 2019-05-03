@@ -1,0 +1,60 @@
+{% load otree static %}
+
+<div class="card bg-light instructions">
+    <div class="card-body">
+
+    <h3>
+        Istruzioni per partecipanti
+    </h3>
+    <p>
+        <strong>Informazioni generali</strong>
+        Sei un gestore di un fondo pensione che vuole investire in modo ottimale una data quantità di denaro in
+        un titolo rischioso. Tale titolo verrà investito nel mercato azionario con rendimento incerto. Per fare una strategia di investimento ottimale, ossia decidere
+        la quantità di denaro da investire nel titolo rischioso, il fondo pensione necessita di una previsione corretta del prezzo dell'azione. In qualità di gestore del fondo, il tuo ruolo è quello
+        di predire il prezzo di mercato dell'azione per 100 periodi temporali consecutivi.
+        Il tuo guadagno dipenderà dalla precisione della predizione: più piccolo sarà l'errore (ossia lo scostamento dal prezzo di mercato)
+        in ogni periodo, maggiore sarà il tuo guadagno totale.
+    </p>
+
+    <p>
+        <strong>Compito di predizione per il gestore finanziario. </strong>
+        L'unico compito dei gestori del fondo in questo esperimento è predire il prezzo di mercato dell'azione nel modo più accurato possibile.
+        Il prezzo dell'azione deve essere predetto per i due periodi successivi. All'inizio dell'esperimento, devi predire il prezzo dell'azione per i primi due periodi.
+        Il prezzo dell'azione sarà probabilmente tra 0 e 100 nei primi due periodi. DOpo che ogni partecipante avrà dato la sua predizione per i primi
+        due periodi, sarà svelato il prezzo di mercato dell'azione per i primi due periodi e, basandosi sugli errori individuali di predizione,
+        si otterranno i guadagni per il periodo 1. Successivamente, ti verrà richiesta di predire il prezzo dell'azione per il periodo 3. Dopo che tutti i psrtecipanti
+        forniranno le loro predizioni per il periodo 3, verrà svelato l'indice del mercato azionario del periodo 2, e, basandosi sugli errori di predizione,
+        verranno forniti i guadagni del periodo 2. Questo processo continua per 100 periodi.
+        Le informazioni disponibili per predire il prezzo dell'azione nel periodo t sono:
+
+        - tutti i prezzi realizzati fino al periodo t-2,
+        - tutte le previsioni fino al periodo t-1,
+        - tutti i guadagni fino al periodo t-2
+    </p>
+    <strong>Informazioni sul mercato azionario </strong>
+        Il prezzo del mercato delle azioni è determinato dall'equilibrio tra la domanda e l'offerta di titoli.
+        Il prezzo di equilibrio del mercato azionario nel periodo t sarà quel prezzo per cui la domanda aggregata eguaglia
+        l'offerta aggregata. L'offerta di titoli è fissa durante l'esperimento. La domanda di titoli è determinata dalla domanda aggregata
+        del numero di grandi fondi pensioni attivi. Durante questo esperimento, gni fondo pensione è gestito da un partecipante.
+
+
+    <p>
+        <strong> Informazioni sulle strategie di investimento del fondo pensione. </strong>
+        La specifica strategia di investimento del fondo pensione che stai gestendo e le strategia di investimento degli altri fondi non sono note.
+        L'investimento paga un tasso di interesse del 5% per ogni periodo e il dividendo pari a 3.00 per ogni periodo. Il pagamento di questi dividendi è 15
+        per ogni periodo. In qualità di gestore del fondo pensione, <strong>non</strong> è quindi richiesto che tu predica i dividendi, ma solo il prezzo dell'azione
+        per ogni periodo. Sulla base della predizione del prezzo dell'azione, il tuo fondo pensione farà poi la strategia di investimento ottimale.
+        Più alto sarà il prezzo da te predetto, maggiore sarà la quantità di denaro investita dal tuo fondo pensione nel mercato azionario, quindi
+        la domanda di azioni sarà maggiore.
+
+
+    </p>
+
+    <p>
+        <strong>Guadagni.</strong>
+        I guadagni dipenderanno esclusivamente dall'accuratezza della predizione. Più precisa sarà la predizione del mercato azionario in
+        ogni periodo, maggiori saranno i guadagni aggregati.
+    </p>
+    </div>
+</div>
+

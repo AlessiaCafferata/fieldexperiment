@@ -1,0 +1,14 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Guess (Period {{ subsession.round_number }} of {{ Constants.num_rounds }})
+{% endblock %}
+
+{% block content %}
+
+    {% formfield player.contribution label='What is your guess?' %}
+
+    {% next_button %}
+
+{% endblock %}
