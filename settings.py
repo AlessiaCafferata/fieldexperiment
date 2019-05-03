@@ -12,12 +12,12 @@ SESSION_CONFIG_DEFAULTS = {
 }
 
 SESSION_CONFIGS = [
-    #{
-    #    'name': 'public_goods',
-    #    'display_name': "Public Goods",
-    #    'num_demo_participants': 3,
-    #    'app_sequence': ['public_goods', 'payment_info'],
-    #},
+    {
+       'name': 'fondo_pensioni',
+       'display_name': "Fondo pension",
+       'num_demo_participants': 1,
+       'app_sequence': ['fondo_pensioni', ],
+    },
 ]
 
 
@@ -40,4 +40,4 @@ DEMO_PAGE_INTRO_HTML = """ """
 SECRET_KEY = 'o1)t8w&37h*3l7tc!li2xff05kt5l)lwzpvju-y*gx9ic5rq9*'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
-INSTALLED_APPS = ['otree']
+INSTALLED_APPS = ['otree', 'fondo_pensioni']
