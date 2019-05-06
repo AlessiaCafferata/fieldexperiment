@@ -48,5 +48,41 @@ class Player(BasePlayer):
         label="What is your prediction for the next period?"
     )
 
+    def build_series(self, round_number):
 
-    pass
+        values_price = list()
+        values_prediction = list()
+
+        # for i in range(round_number-1):
+        # for i in range(95):
+            # values_price.append(random.randint(1, 100))
+            # values_prediction.append(random.randint(1, 100))
+
+        rn = 1
+        for p in self.in_previous_rounds():
+
+            values_prediction.append(p.investimento)
+
+            if rn > (round_number - 2):
+                values_price.append(None)
+            else:
+                values_price.append(p.price)
+
+            rn += 1
+
+        # for i in range(round_number-1):
+        for i in range(Constants.num_rounds - rn):
+            values_price.append(None)
+            values_prediction.append(None)
+
+        series_price = {
+            'name': "Price",
+            'data': values_price
+        }
+
+        series_prediction = {
+            'name': "Prediction",
+            'data': values_prediction
+        }
+
+        return [series_prediction, series_price]
