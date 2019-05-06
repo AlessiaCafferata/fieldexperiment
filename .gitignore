@@ -115,3 +115,9 @@ __pycache__/
 *.py[cod]
 .DS_Store
 *.otreezip
+
+# vim .swp files
+*.swp
+
+# File for youcompleteme
+.ycm_extra_conf.py
