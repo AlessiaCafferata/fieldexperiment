@@ -18,9 +18,14 @@ class Constants(BaseConstants):
     num_rounds = 10  # TODO deve essere 100
     instructions_template = "fondo_pensioni/Instructions.html"
 
-    R = c(0.05)
-    D = c(3)
+    # R = c(0.05)
+    R = 0.05
+
+    # D = c(3)
+    D = 3.0
+
     F = c(49)
+
     S = c(1300)
 
     endowment = 100
@@ -48,5 +53,16 @@ class Player(BasePlayer):
 
     payoff = models.CurrencyField()
 
+    @property
+    def total_payoff(self):
+        """
+        Guadagno totale dato dalla somma di tutti i guadagni fino al round attuale
+        (incluso).
+        """
+        tp = 0
+        for p in self.in_previous_rounds():
+            tp += p.payoff
 
+        tp += self.payoff
 
+        return tp
