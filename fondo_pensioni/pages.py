@@ -136,5 +136,5 @@ page_sequence = [
     # Introduction,  # TODO disabilitata per debug
     Investi,
     ResultsWaitPage,
-    Results
+    # Results
 ]
