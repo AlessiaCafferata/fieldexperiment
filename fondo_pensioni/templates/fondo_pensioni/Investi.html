@@ -7,6 +7,50 @@
 
 {% block content %}
 
-    {% next_button %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+{# Blocco principale#}
+<div class="row">
+
+	{# Grafici e form #}
+	<div class="col-md-9">
+
+		{# Grafico #}
+		<div class="row">
+			<div class="col-md-12">
+				{% include "fondo_pensioni/_main_chart_js.html" %}
+			</div>
+		</div>
+
+		{# Statistiche #}
+		<div class="row">
+			<div class="col-md-12">
+				Statistiche
+			</div>
+		</div>
+
+		{# Form #}
+		<div class="row">
+			<div class="col-md-12">
+				Form
+			</div>
+		</div>
+
+
+	</div>
+
+	{# Colonna laterale #}
+	<div class="col-md-3">
+		Colonna laterale
+	</div>
+
+</div>
+
+	{% formfields %}
+
+	{% next_button %}
 
 {% endblock %}
