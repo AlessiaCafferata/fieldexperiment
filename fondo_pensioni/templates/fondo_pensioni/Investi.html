@@ -35,7 +35,8 @@
 
 			<div class="col-md-3">
 				Earnings this period:<br />
-				{{ player.payoff }}
+				{% comment %}{{ player.payoff }}{% endcomment %}
+				{{ player.last_payoff }}
 			</div>
 
 			<div class="col-md-2">

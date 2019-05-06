@@ -54,10 +54,25 @@ class Player(BasePlayer):
     payoff = models.CurrencyField()
 
     @property
+    def last_payoff(self):
+        """
+        Guadagno dell'ultimo investimento.
+        """
+
+        player_in_previous_rounds = self.in_previous_rounds()
+
+        # Se la lista non e' vuota, restituisci il payoff dell'ultimo periodo
+        if player_in_previous_rounds:
+            return player_in_previous_rounds[-1].payoff
+        # Altrimenti, zero
+        else:
+            return 0
+
+    @property
     def total_payoff(self):
         """
-        Guadagno totale dato dalla somma di tutti i guadagni fino al round attuale
-        (incluso).
+        Guadagno totale dato dalla somma di tutti i guadagni fino al round
+        attuale (incluso).
         """
         tp = 0
         for p in self.in_previous_rounds():
