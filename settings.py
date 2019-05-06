@@ -14,7 +14,7 @@ SESSION_CONFIG_DEFAULTS = {
 SESSION_CONFIGS = [
     {
        'name': 'fondo_pensioni',
-       'display_name': "Fondo pension",
+       'display_name': "Fondo pensioni",
        'num_demo_participants': 1,
        'app_sequence': ['fondo_pensioni', ],
     },
