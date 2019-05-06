@@ -13,76 +13,40 @@ Your app description
 
 class Constants(BaseConstants):
     name_in_url = 'fondo_pensioni'
-    players_per_group = None
-    # num_rounds = 4  # TODO deve essere 100
-    num_rounds = 100  # TODO deve essere 100
+    # players_per_group = 6
+    players_per_group =2
+    num_rounds = 10  # TODO deve essere 100
     instructions_template = "fondo_pensioni/Instructions.html"
 
+    R = c(0.05)
+    D = c(3)
+    F = c(49)
+    S = c(1300)
+
+    endowment = 100
 
 class Subsession(BaseSubsession):
-    pass
 
+    def price_update(self):
+        contributions = [p.contribution for p in self.get_players()]
+        return (sum(contributions)/Constants.players_per_group+Constants.D)/(1+Constants.R)
 
 class Group(BaseGroup):
+    mean_contribution = models.CurrencyField()
+    price = models.CurrencyField()
 
-    def set_price(self):
-
-        player = self.get_players()[0]
-        print(player)
-
-        player.price = 75
-
-        print("In set_price:")
+    pass
 
 
 class Player(BasePlayer):
 
-    price = models.CurrencyField(
-        min=0,
-        # label="Quanto vuoi investire?"
+    contribution = models.CurrencyField(
+        min=0, max=Constants.endowment
     )
 
-    investimento = models.CurrencyField(
-        min=0,
-        # label="Quanto vuoi investire?"
-        label="What is your prediction for the next period?"
-    )
+    guess = models.CurrencyField()
 
-    def build_series(self, round_number):
+    payoff = models.CurrencyField()
 
-        values_price = list()
-        values_prediction = list()
 
-        # for i in range(round_number-1):
-        # for i in range(95):
-            # values_price.append(random.randint(1, 100))
-            # values_prediction.append(random.randint(1, 100))
 
-        rn = 1
-        for p in self.in_previous_rounds():
-
-            values_prediction.append(p.investimento)
-
-            if rn > (round_number - 2):
-                values_price.append(None)
-            else:
-                values_price.append(p.price)
-
-            rn += 1
-
-        # for i in range(round_number-1):
-        for i in range(Constants.num_rounds - rn):
-            values_price.append(None)
-            values_prediction.append(None)
-
-        series_price = {
-            'name': "Price",
-            'data': values_price
-        }
-
-        series_prediction = {
-            'name': "Prediction",
-            'data': values_prediction
-        }
-
-        return [series_prediction, series_price]
