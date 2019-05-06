@@ -27,15 +27,38 @@
 
 		{# Statistiche #}
 		<div class="row">
-			<div class="col-md-12">
-				Statistiche
+			
+			<div class="col-md-3">
+				Total earnings:<br />
+				XXX
 			</div>
+
+			<div class="col-md-3">
+				Earnings this period:<br />
+				XXX
+			</div>
+
+			<div class="col-md-2">
+				Round:<br />
+				{{ subsession.round_number }}
+			</div>
+
+			<div class="col-md-2">
+				Mean dividend:<br />
+				XXX
+			</div>
+
+			<div class="col-md-2">
+				Interest rate:<br />
+				XXX
+			</div>
+
 		</div>
 
 		{# Form #}
 		<div class="row">
 			<div class="col-md-12">
-				Form
+				{% formfields %}
 			</div>
 		</div>
 
@@ -44,12 +67,11 @@
 
 	{# Colonna laterale #}
 	<div class="col-md-3">
-		Colonna laterale
+		{{ series_df_html|safe }}
 	</div>
 
 </div>
 
-	{% formfields %}
 
 	{% next_button %}
 

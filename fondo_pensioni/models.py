@@ -31,7 +31,8 @@ class Player(BasePlayer):
 
     investimento = models.CurrencyField(
         min=0,
-        label="Quanto vuoi investire?"
+        # label="Quanto vuoi investire?"
+        label="What is your prediction for the next period?"
     )
 
 

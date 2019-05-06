@@ -4,6 +4,7 @@ from .models import Constants
 
 import random
 
+import pandas as pd
 
 class Introduction(Page):
 
@@ -21,7 +22,7 @@ def get_fake_hc_series(round_number):
     values_prediction = list()
 
     # for i in range(round_number-1):
-    for i in range(20):
+    for i in range(95):
         values_price.append(random.randint(1, 100))
         values_prediction.append(random.randint(1, 100))
 
@@ -40,7 +41,7 @@ def get_fake_hc_series(round_number):
         'data': values_prediction
     }
 
-    return [series_price, series_prediction]
+    return [series_prediction, series_price]
 
 class Investi(Page):
 
@@ -51,9 +52,21 @@ class Investi(Page):
     def vars_for_template(self):
         highcharts_series = get_fake_hc_series(self.round_number)
 
+        series_df = pd.DataFrame(columns=['Round', 'Prediction', 'Price'])
+        series_df['Prediction'] = highcharts_series[0]['data']
+        series_df['Price'] = highcharts_series[1]['data']
+        series_df['Round'] = range(1, 101)
+
+        # TODO debug, to remove
+        series_df = series_df.head(20)
+
+        # print(series_df)
+
         return {
             'player_in_previous_rounds': self.player.in_previous_rounds(),
-            'highcharts_series': highcharts_series
+            'highcharts_series': highcharts_series,
+            'series_df_html': series_df.to_html(
+                index=False, classes=['table', 'table-sm'])
         }
 
 
