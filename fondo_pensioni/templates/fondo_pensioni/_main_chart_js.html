@@ -14,7 +14,8 @@ Highcharts.chart('main_chart', {
     xAxis: {
         title: {
             text: 'Round'
-        }
+        },
+	tickInterval: 5
     },
 
     yAxis: {
@@ -33,6 +34,9 @@ Highcharts.chart('main_chart', {
             label: {
                 connectorAllowed: false
             },
+	    marker: {
+		enabled: true
+	    },
             pointStart: 1
         }
     },
