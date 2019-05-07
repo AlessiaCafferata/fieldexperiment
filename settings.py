@@ -41,3 +41,6 @@ SECRET_KEY = 'o1)t8w&37h*3l7tc!li2xff05kt5l)lwzpvju-y*gx9ic5rq9*'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 INSTALLED_APPS = ['otree', 'fondo_pensioni']
+
+# Required for DEBUG = False
+ALLOWED_HOSTS = ['*']
