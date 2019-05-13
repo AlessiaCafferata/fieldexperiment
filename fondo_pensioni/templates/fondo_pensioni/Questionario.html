@@ -1,0 +1,26 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Questionario
+{% endblock %}
+
+{% block content %}
+
+{# Blocco principale#}
+<div class="row">
+
+	{# Questionario #}
+	<div class="col-md-12">
+
+	{# Form #}
+	{% formfields %}
+
+	</div>
+
+</div>
+
+
+	{% next_button %}
+
+{% endblock %}

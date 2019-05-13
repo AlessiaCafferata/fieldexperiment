@@ -2,7 +2,7 @@ from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
 
-import random
+import datetime
 
 import pandas as pd
 
@@ -17,6 +17,59 @@ class Introduction(Page):
 
         return self.round_number == 1
 
+class Questionario(Page):
+
+    def is_displayed(self):
+        """
+        Questa pagina deve essere visualizzata solamente all'inizio, quindi
+        nel primo round.
+        """
+
+        return self.round_number == 1
+
+    form_model = 'player'
+    form_fields = ['crt_bat', 'experience', 'sector', 'education', 'age',
+                   'gender']
+
+
+class QuestionarioWaitPage(WaitPage):
+
+    def is_displayed(self):
+        """
+        Questa pagina deve essere visualizzata solamente all'inizio, quindi
+        nel primo round.
+        """
+
+        return self.round_number == 1
+
+
+    def after_all_players_arrive(self):
+        group = self.group
+        # group_in_previous_rounds = group.in_previous_rounds()
+        # group.prev = group.in_previous_rounds[len(group_in_previous_rounds)-1]
+        players = group.get_players()
+        # contributions = [p.contribution for p in players]
+        # group.mean_contribution = sum(contributions)/Constants.players_per_group
+        # group.price = (group.mean_contribution + Constants.D)/(1 + Constants.R)
+
+        questionario_txt_file = "sessione_{}.txt".format(
+            datetime.datetime.now().strftime("%Y%m%d_%H%M%S"))
+
+        with open(questionario_txt_file, 'w') as qf:
+
+            for p in players:
+
+                qf.write("Giocatore {}:\n".format(p.id_in_group))
+
+                # Campi per il questionario
+                qf.write("Impiego attuale: {}\n".format(p.crt_bat))
+                qf.write("Esperienza (anni): {} \n".format(p.experience))
+                qf.write("Ambito di mercato: {}\n".format(p.sector))
+                qf.write("Livello d'istruzione: {}\n".format(p.sector))
+                qf.write("Eta': {}\n".format(p.age))
+                qf.write("Sesso: {}\n".format(p.gender))
+
+                qf.write("\n")
 
 # class Contribute(Page):
     # form_model = 'player'
@@ -67,8 +120,8 @@ def build_series(player, group, round_number):
 
 class Investi(Page):
 
-    form_model = 'giocatore'
-    form_fields = ['previsione']
+    form_model = 'player'
+    form_fields = ['contribution']
 
     def vars_for_template(self):
         # highcharts_series = get_fake_hc_series(self.round_number)
@@ -92,11 +145,13 @@ class Investi(Page):
         return {
             'player_in_previous_rounds': self.player.in_previous_rounds(),
             'highcharts_series': highcharts_series,
-            'tasso_di_interesse': "{:.2f}%".format(Constants.R*100),
-            'Dividendo': "{:.2f}%".format(Constants.D),
-            'Prezzi_generati': series_df.to_html(
+            'interest_rate': "{:.2f}%".format(Constants.R*100),
+            'mean_dividend': "{:.2f}%".format(Constants.D),
+            'series_df_html': series_df.to_html(
                 index=False, classes=['table', 'table-sm'])
         }
+
+
 
 
 class ResultsWaitPage(WaitPage):
@@ -126,7 +181,9 @@ class FinalResults(Page):
         return self.round_number == Constants.num_rounds
 
 page_sequence = [
-    Introduction,  # TODO disabilitata per debug
+    Introduction,
+    Questionario,
+    QuestionarioWaitPage,
     Investi,
     ResultsWaitPage,
     Results

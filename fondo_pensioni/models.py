@@ -13,8 +13,8 @@ Your app description
 
 class Constants(BaseConstants):
     name_in_url = 'fondo_pensioni'
-    players_per_group = 6
-    #players_per_group =2
+    # players_per_group = 6
+    players_per_group =2
     num_rounds = 10  # TODO deve essere 100
     instructions_template = "fondo_pensioni/Instructions.html"
 
@@ -46,12 +46,44 @@ class Group(BaseGroup):
 class Player(BasePlayer):
 
     contribution = models.CurrencyField(
-        min=0, max=Constants.endowment
+        min=0, max=Constants.endowment,
+        verbose_name="Contributo"
     )
 
     guess = models.CurrencyField()
 
     payoff = models.CurrencyField()
+
+    # Campi per il questionario
+    crt_bat = models.StringField(
+        verbose_name='''
+            Qual è il tuo impiego attuale?'''
+    )
+
+    experience = models.StringField(
+        choices=['0-5', '6-10', '11-15', '16-20', '21+'],
+        verbose_name='Da quanti anni lavori nei mercati finanziari?',
+        widget=widgets.RadioSelect)
+
+    sector = models.StringField(
+        choices=['Spot', 'Derivati', 'Futures', 'Altro'],
+        verbose_name='In quale ambito di mercato svolgi la tua attività?'
+    )
+
+    education = models.StringField(
+        choices=['Laurea', 'Master', 'Dottorato', 'Altro'],
+        verbose_name='Qual è il tuo livello di istruzione?'
+    )
+
+    age = models.StringField(
+        choices=['20-30', '31-40', '41-50', '51-60', '60+'],
+        verbose_name='Quanti anni hai?'
+    )
+
+    gender = models.StringField(
+        choices=['Uomo', 'Donna'],
+        verbose_name='Di che sesso sei?',
+        widget=widgets.RadioSelect)
 
     @property
     def last_payoff(self):

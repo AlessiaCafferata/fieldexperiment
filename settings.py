@@ -15,7 +15,8 @@ SESSION_CONFIGS = [
     {
        'name': 'fondo_pensioni',
        'display_name': "Fondo pensioni",
-       'num_demo_participants': 6,
+       # 'num_demo_participants': 6,
+       'num_demo_participants': 2,
        'app_sequence': ['fondo_pensioni', ],
     },
 ]
