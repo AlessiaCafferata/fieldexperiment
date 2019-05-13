@@ -53,12 +53,12 @@ def build_series(player, group, round_number):
         values_prediction.append(None)
 
     series_price = {
-        'name': "Price",
+        'name': "Prezzo",
         'data': values_price
     }
 
     series_prediction = {
-        'name': "Prediction",
+        'name': "Previsione",
         'data': values_prediction
     }
 
@@ -67,34 +67,34 @@ def build_series(player, group, round_number):
 
 class Investi(Page):
 
-    form_model = 'player'
-    form_fields = ['contribution']
+    form_model = 'giocatore'
+    form_fields = ['previsione']
 
     def vars_for_template(self):
         # highcharts_series = get_fake_hc_series(self.round_number)
         highcharts_series = build_series(
             self.player, self.group, self.round_number)
 
-        series_df = pd.DataFrame(columns=['Round', 'Prediction', 'Price'])
-        series_df['Prediction'] = highcharts_series[0]['data']
-        series_df['Price'] = highcharts_series[1]['data']
+        series_df = pd.DataFrame(columns=['Periodo', 'Previsione', 'Prezzo'])
+        series_df['Previsione'] = highcharts_series[0]['data']
+        series_df['Prezzo'] = highcharts_series[1]['data']
 
         # print(series_df.shape)
         # print(len(range(1, Constants.num_rounds)))
 
         # Numero di round totali:
-        series_df['Round'] = range(1, Constants.num_rounds)
+        series_df['Periodo'] = range(1, Constants.num_rounds)
 
         rn = self.round_number
-        series_df = series_df[series_df['Round'] < rn]
-        series_df = series_df[series_df['Round'] >= rn-20]
+        series_df = series_df[series_df['Periodo'] < rn]
+        series_df = series_df[series_df['Periodo'] >= rn-20]
 
         return {
             'player_in_previous_rounds': self.player.in_previous_rounds(),
             'highcharts_series': highcharts_series,
-            'interest_rate': "{:.2f}%".format(Constants.R*100),
-            'mean_dividend': "{:.2f}%".format(Constants.D),
-            'series_df_html': series_df.to_html(
+            'tasso_di_interesse': "{:.2f}%".format(Constants.R*100),
+            'Dividendo': "{:.2f}%".format(Constants.D),
+            'Prezzi_generati': series_df.to_html(
                 index=False, classes=['table', 'table-sm'])
         }
 
@@ -102,6 +102,8 @@ class Investi(Page):
 class ResultsWaitPage(WaitPage):
     def after_all_players_arrive(self):
         group = self.group
+        group_in_previous_rounds = group.in_previous_rounds()
+        group.prev = group.in_previous_rounds[len(group_in_previous_rounds)-1]
         players = group.get_players()
         contributions = [p.contribution for p in players]
         group.mean_contribution = sum(contributions)/Constants.players_per_group
@@ -111,7 +113,8 @@ class ResultsWaitPage(WaitPage):
         if group.price == p.contribution:
             p.payoff = Constants.S
         else:
-            p.payoff = max(Constants.S-(Constants.S/(Constants.F*(group.price - p.contribution)**2)),0)
+            #p.payoff = max(Constants.S-(Constants.S/(Constants.F*(group.price.in_previous_rounds[len(group_in_previous_rounds)-1] - p.contribution)**2)),0)
+            p.payoff = max(Constants.S-(Constants.S/(Constants.F*(group.prev.price - p.contribution)**2)),0)
 
 
 class Results(Page):
@@ -123,8 +126,8 @@ class FinalResults(Page):
         return self.round_number == Constants.num_rounds
 
 page_sequence = [
-    # Introduction,  # TODO disabilitata per debug
+    Introduction,  # TODO disabilitata per debug
     Investi,
     ResultsWaitPage,
-    # Results
+    Results
 ]

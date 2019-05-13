@@ -13,8 +13,8 @@ Your app description
 
 class Constants(BaseConstants):
     name_in_url = 'fondo_pensioni'
-    # players_per_group = 6
-    players_per_group =2
+    players_per_group = 6
+    #players_per_group =2
     num_rounds = 10  # TODO deve essere 100
     instructions_template = "fondo_pensioni/Instructions.html"
 
@@ -28,7 +28,7 @@ class Constants(BaseConstants):
 
     S = c(1300)
 
-    endowment = 100
+    endowment = 1000
 
 class Subsession(BaseSubsession):
 
