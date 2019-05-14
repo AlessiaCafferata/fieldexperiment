@@ -208,14 +208,19 @@ class ResultsWaitPage(WaitPage):
                         # print(group_in_previous_round.price)
                         # print(p.contribution)
 
-                    #p.payoff = max(Constants.S-(Constants.S/(Constants.F*(group.price.in_previous_rounds[len(group_in_previous_rounds)-1] - p.contribution)**2)),0)
+                    denominator = (
+                        Constants.F *
+                        # XXX Occhio, questo denominatore qualche
+                        # volta si azzera
+                        (group_in_previous_round.price - p.contribution)**2)
+
+                    # XXX occhio qui
+                    if denominator == 0:
+                        denominator = 0.1
+
                     p.payoff = max(
                         Constants.S - (
-                            Constants.S / (
-                                Constants.F *
-                                # XXX Occhio, questo denominatore qualche
-                                # volta si azzera
-                                (group_in_previous_round.price - p.contribution)**2)),
+                            Constants.S / denominator),
                         0)
 
         else:
