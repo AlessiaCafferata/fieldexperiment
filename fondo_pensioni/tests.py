@@ -11,8 +11,15 @@ class PlayerBot(Bot):
     def play_round(self):
         # Only on first round
         if self.round_number == 1:
-            print(Player.experience)
             yield (pages.Introduction)
+            yield (pages.Controllo1,
+                   {
+                       'domanda_controllo_1': 230,
+                   })
+            yield (pages.Controllo2,
+                   {
+                       'domanda_controllo_2': 1172,
+                   })
             yield (pages.Questionario,
                    {
                        'crt_bat': "Impiegato normale",

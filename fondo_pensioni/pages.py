@@ -17,6 +17,7 @@ class Introduction(Page):
 
         return self.round_number == 1
 
+
 class Questionario(Page):
 
     def is_displayed(self):
@@ -30,6 +31,34 @@ class Questionario(Page):
     form_model = 'player'
     form_fields = ['crt_bat', 'experience', 'sector', 'education', 'age',
                    'gender']
+
+
+class Controllo1(Page):
+
+    def is_displayed(self):
+        """
+        Questa pagina deve essere visualizzata solamente all'inizio, quindi
+        nel primo round.
+        """
+
+        return self.round_number == 1
+
+    form_model = 'player'
+    form_fields = ['domanda_controllo_1']
+
+
+class Controllo2(Page):
+
+    def is_displayed(self):
+        """
+        Questa pagina deve essere visualizzata solamente all'inizio, quindi
+        nel primo round.
+        """
+
+        return self.round_number == 1
+
+    form_model = 'player'
+    form_fields = ['domanda_controllo_2']
 
 
 class QuestionarioWaitPage(WaitPage):
@@ -205,6 +234,8 @@ class FinalResults(Page):
 
 page_sequence = [
     Introduction,
+    Controllo1,
+    Controllo2,
     Questionario,
     QuestionarioWaitPage,
     Investi,

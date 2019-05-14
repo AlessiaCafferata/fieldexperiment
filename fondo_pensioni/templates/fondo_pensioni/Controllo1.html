@@ -1,0 +1,30 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Questionario
+{% endblock %}
+
+{% block content %}
+
+{# Blocco principale#}
+<div class="row">
+
+	{# Questionario #}
+	<div class="col-md-12">
+
+	In questa sessione, vogliamo accertarci che abbiate compreso la tabella che vi abbiamo fornito.
+       	Vi chiediamo quindi di rispondere cortesemente alle due domande che seguono:
+
+
+	{# Form #}
+	{% formfields %}
+
+	</div>
+
+</div>
+
+
+	{% next_button %}
+
+{% endblock %}

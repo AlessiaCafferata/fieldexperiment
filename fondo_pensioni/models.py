@@ -3,6 +3,7 @@ from otree.api import (
     Currency as c, currency_range
 )
 
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 author = 'Your name here'
 
@@ -82,6 +83,37 @@ class Player(BasePlayer):
         choices=['Uomo', 'Donna'],
         verbose_name='Di che sesso sei?',
         widget=widgets.RadioSelect)
+
+    domanda_controllo_1 = models.FloatField(
+        verbose_name='Domanda 1: La tua previsione è pari a 34,38 '
+        'mentre il prezzo di mercato è 28,02. Qual è in questo caso '
+        'il tuo guadagno (in punti?)',
+        validators=[
+            MinValueValidator(230, message="SBAGLIATO. La tua risposta non è "
+                              "corretta. Calcola nuovamente il tuo errore di "
+                              "previsione e successivamente consulta i punti "
+                              "nella tabella."),
+            MaxValueValidator(230, message="SBAGLIATO. La tua risposta non è "
+                              "corretta. Calcola nuovamente il tuo errore di "
+                              "previsione e successivamente consulta i punti "
+                              "nella tabella."),
+        ]
+    )
+
+    domanda_controllo_2 = models.FloatField(
+        verbose_name='La tua previsione è pari a 88.33 mentre il prezzo di '
+        'mercato è 86.11. Qual è in questo caso il tuo guadagno (in punti?)',
+        validators=[
+            MinValueValidator(1172, message="SBAGLIATO”. La tua risposta non è "
+                              "corretta. Calcola nuovamente il tuo errore di "
+                              "previsione e successivamente consulta i punti "
+                              "nella tabella."),
+            MaxValueValidator(1172, message="SBAGLIATO”. La tua risposta non è "
+                              "corretta. Calcola nuovamente il tuo errore di "
+                              "previsione e successivamente consulta i punti "
+                              "nella tabella."),
+        ]
+    )
 
     @property
     def last_payoff(self):
