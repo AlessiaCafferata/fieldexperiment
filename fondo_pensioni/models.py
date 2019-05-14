@@ -50,8 +50,6 @@ class Player(BasePlayer):
         verbose_name="Contributo"
     )
 
-    guess = models.CurrencyField()
-
     payoff = models.CurrencyField()
 
     # Campi per il questionario
