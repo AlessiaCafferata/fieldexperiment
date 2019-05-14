@@ -45,12 +45,7 @@ class QuestionarioWaitPage(WaitPage):
 
     def after_all_players_arrive(self):
         group = self.group
-        # group_in_previous_rounds = group.in_previous_rounds()
-        # group.prev = group.in_previous_rounds[len(group_in_previous_rounds)-1]
         players = group.get_players()
-        # contributions = [p.contribution for p in players]
-        # group.mean_contribution = sum(contributions)/Constants.players_per_group
-        # group.price = (group.mean_contribution + Constants.D)/(1 + Constants.R)
 
         questionario_txt_file = "sessione_{}.txt".format(
             datetime.datetime.now().strftime("%Y%m%d_%H%M%S"))
@@ -152,24 +147,42 @@ class Investi(Page):
         }
 
 
-
-
 class ResultsWaitPage(WaitPage):
     def after_all_players_arrive(self):
+
         group = self.group
-        group_in_previous_rounds = group.in_previous_rounds()
-        group.prev = group.in_previous_rounds[len(group_in_previous_rounds)-1]
         players = group.get_players()
+
         contributions = [p.contribution for p in players]
-        group.mean_contribution = sum(contributions)/Constants.players_per_group
-        group.price = (group.mean_contribution + Constants.D)/(1 + Constants.R)
-        for p in players:
-            p.guess = p.contribution
-        if group.price == p.contribution:
-            p.payoff = Constants.S
+        group.mean_contribution = float(sum(contributions))/Constants.players_per_group
+        group.price = float(group.mean_contribution + Constants.D)/(1 + Constants.R)
+
+        if self.round_number > 1:
+
+            group_in_previous_rounds = group.in_previous_rounds()
+
+            # Il gruppo al round precedente
+            group_in_previous_round = group_in_previous_rounds[len(group_in_previous_rounds)-1]
+
+            # TODO da cancellare?
+            for p in players:
+                # p.guess = p.contribution
+
+                if group.price == p.contribution:
+                    p.payoff = Constants.S
+                else:
+                    #p.payoff = max(Constants.S-(Constants.S/(Constants.F*(group.price.in_previous_rounds[len(group_in_previous_rounds)-1] - p.contribution)**2)),0)
+                    p.payoff = max(
+                        Constants.S-(
+                            Constants.S/(
+                                Constants.F*(
+                                    group_in_previous_round.price - p.contribution)**2)),
+                        0)
+
         else:
-            #p.payoff = max(Constants.S-(Constants.S/(Constants.F*(group.price.in_previous_rounds[len(group_in_previous_rounds)-1] - p.contribution)**2)),0)
-            p.payoff = max(Constants.S-(Constants.S/(Constants.F*(group.prev.price - p.contribution)**2)),0)
+            for p in players:
+                # TODO da controllare
+                p.payoff = 0
 
 
 class Results(Page):
@@ -186,5 +199,5 @@ page_sequence = [
     QuestionarioWaitPage,
     Investi,
     ResultsWaitPage,
-    Results
+    # Results
 ]
