@@ -177,6 +177,7 @@ class Investi(Page):
 
 
 class ResultsWaitPage(WaitPage):
+
     def after_all_players_arrive(self):
 
         group = self.group
@@ -229,10 +230,6 @@ class ResultsWaitPage(WaitPage):
                 p.payoff = 0
 
 
-class Results(Page):
-    pass
-
-
 class FinalResults(Page):
     def is_displayed(self):
         return self.round_number == Constants.num_rounds
@@ -245,5 +242,5 @@ page_sequence = [
     QuestionarioWaitPage,
     Investi,
     ResultsWaitPage,
-    # Results
+    FinalResults,
 ]

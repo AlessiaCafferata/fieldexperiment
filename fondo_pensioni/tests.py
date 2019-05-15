@@ -24,17 +24,20 @@ class PlayerBot(Bot):
                    {
                        'crt_bat': "Impiegato normale",
                        'experience': random.choice(
-                           Player._meta.get_field('experience').choices),
+                           Player._meta.get_field('experience').choices)[0],
                        'sector': random.choice(
-                           Player._meta.get_field('sector').choices),
+                           Player._meta.get_field('sector').choices)[0],
                        'education': random.choice(
-                           Player._meta.get_field('education').choices),
+                           Player._meta.get_field('education').choices)[0],
                        'age': random.choice(
-                           Player._meta.get_field('age').choices),
+                           Player._meta.get_field('age').choices)[0],
                        'gender': random.choice(
-                           Player._meta.get_field('gender').choices),
+                           Player._meta.get_field('gender').choices)[0],
                    })
 
+        # La pagina mostrata ogni volta
         yield (pages.Investi, {'contribution': random.randint(1,100)})
-        # yield (pages.Results)
-        pass
+
+        # Nell'ultimo round, mostra anche la pagina dei risultati
+        if self.round_number == Constants.num_rounds:
+            yield (pages.FinalResults)

@@ -18,6 +18,7 @@ SESSION_CONFIGS = [
        'num_demo_participants': 6,
        # 'num_demo_participants': 2,
        'app_sequence': ['fondo_pensioni', ],
+       'use_browser_bots': False,  # XXX settare a False!
     },
 ]
 

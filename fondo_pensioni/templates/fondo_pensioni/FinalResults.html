@@ -1,0 +1,30 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Conclusione
+{% endblock %}
+
+{% block content %}
+
+{# Blocco principale#}
+<div class="row">
+
+	{# Grafici e form #}
+	<div class="col-md-12">
+
+		{# Total payoff #}
+		<div class="card bg-light">
+			 Grazie per aver partecipato! 
+			 Adesso si procederà all’estrazione a sorte del vincitore.
+			 Il tuo guadagno potenziale è: {{ player.total_payoff }}
+			
+		</div>
+
+	</div>
+
+</div>
+
+    {% next_button %}
+
+{% endblock %}
