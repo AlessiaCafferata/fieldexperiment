@@ -214,10 +214,11 @@ def compute_payoff(player_prediction, price):
     coefficient = (price - player_prediction)**2
 
     payoff = max(
-        Constants.S - (( Constants.S/Constants.F)*coefficient),
+        Constants.S - ((Constants.S/Constants.F)*coefficient),
         0)
 
     return payoff
+
 
 class ResultsWaitPage(WaitPage):
 
@@ -229,21 +230,29 @@ class ResultsWaitPage(WaitPage):
         group = self.group
         players = group.get_players()
 
-        contributions = [p.contribution for p in players]
-
-        group.price = compute_price(contributions)
-
         if self.round_number > 1:
 
-            # TODO da cancellare?
+            contributions = list()
+
             for p in players:
 
                 player_in_previous_rounds = p.in_previous_rounds()
-
-                # Il gruppo al round precedente p_tm1 = player at t minus 1
+                # Il player al round precedente p_tm1 = player at t minus 1
                 p_tm1 = player_in_previous_rounds[
                     len(player_in_previous_rounds)-1]
 
+                contributions.append(p_tm1.contribution)
+
+            group.price = compute_price(contributions)
+
+            for p in players:
+
+                player_in_previous_rounds = p.in_previous_rounds()
+                # Il player al round precedente p_tm1 = player at t minus 1
+                p_tm1 = player_in_previous_rounds[
+                    len(player_in_previous_rounds)-1]
+
+                p_tm1.contribution
                 # Calcola il guadagno al turno corrente
                 payoff = compute_payoff(p_tm1.contribution, group.price)
                 p.payoff = payoff
