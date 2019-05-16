@@ -32,10 +32,7 @@ class Constants(BaseConstants):
     endowment = 1000
 
 class Subsession(BaseSubsession):
-
-    def price_update(self):
-        contributions = [p.contribution for p in self.get_players()]
-        return (sum(contributions)/Constants.players_per_group+Constants.D)/(1+Constants.R)
+    pass
 
 class Group(BaseGroup):
     mean_contribution = models.CurrencyField()
@@ -48,7 +45,7 @@ class Player(BasePlayer):
 
     contribution = models.CurrencyField(
         min=0, max=Constants.endowment,
-        verbose_name="Contributo"
+        verbose_name="Qual è la tua previsione per il prossimo periodo?"
     )
 
     payoff = models.CurrencyField()
