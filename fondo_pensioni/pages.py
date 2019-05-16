@@ -162,12 +162,14 @@ class Investi(Page):
         # Numero di round totali:
         series_df['Periodo'] = range(1, Constants.num_rounds + 1)
 
-        # Taglia la prima riga relativa al periodo 1
-        series_df = series_df.iloc[1:, :]
+        rn = self.round_number
+
+        if rn == 1:
+            # Taglia la prima riga relativa al periodo 1
+            series_df = series_df.iloc[1:, :]
 
         # print(series_df)
 
-        rn = self.round_number
         series_df = series_df[series_df['Periodo'] <= rn]
         series_df = series_df[series_df['Periodo'] > rn-20]
 
