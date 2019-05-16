@@ -116,6 +116,9 @@ def build_series(player, group, round_number):
         values_prediction.append(p.contribution)
         values_price.append(g.price)
 
+    # Hide last price
+    # values_price[-1] = None
+
     values_price.append(None)
 
     # Il turno attuale
@@ -184,7 +187,7 @@ class Investi(Page):
             'player_in_previous_rounds': self.player.in_previous_rounds(),
             'highcharts_series': highcharts_series,
             'interest_rate': "{:.2f}%".format(Constants.R*100),
-            'mean_dividend': "{:.2f}%".format(Constants.D),
+            'mean_dividend': "{:.2f}".format(Constants.D),
             'series_df_html': series_df_fixed.to_html(
                 index=False, classes=['table', 'table-sm'], na_rep="")
         }
