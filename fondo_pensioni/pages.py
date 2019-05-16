@@ -169,9 +169,12 @@ class Investi(Page):
 
         rn = self.round_number
 
-        if rn == 1:
-            # Taglia la prima riga relativa al periodo 1
-            series_df = series_df.iloc[1:, :]
+        # if rn == 1:
+            # # Taglia la prima riga relativa al periodo 1
+            # series_df = series_df.iloc[1:, :]
+
+        # Taglia la prima riga relativa al periodo 1
+        series_df = series_df.iloc[1:, :]
 
         # print(series_df)
 
