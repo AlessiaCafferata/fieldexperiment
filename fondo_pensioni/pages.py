@@ -61,6 +61,8 @@ class Controllo2(Page):
 
 
 class QuestionarioWaitPage(WaitPage):
+    title_text = "Attendere prego..."
+    body_text = "Attendere prego..."
 
     def is_displayed(self):
         """
@@ -218,6 +220,9 @@ def compute_payoff(player_prediction, price):
     return payoff
 
 class ResultsWaitPage(WaitPage):
+
+    title_text = "Attendere prego..."
+    body_text = "Attendere prego..."
 
     def after_all_players_arrive(self):
 
