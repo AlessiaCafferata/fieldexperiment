@@ -194,7 +194,8 @@ class Investi(Page):
             'interest_rate': "{:.2f}%".format(Constants.R*100),
             'mean_dividend': "{:.2f}".format(Constants.D),
             'series_df_html': series_df_fixed.to_html(
-                index=False, classes=['table', 'table-sm'], na_rep="")
+                index=False, classes=['table', 'table-sm'], na_rep="",
+                float_format="%.2f")
         }
 
 
