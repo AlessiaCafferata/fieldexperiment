@@ -165,7 +165,7 @@ class Investi(Page):
         # print(series_df.shape)
         # print(len(range(2, Constants.num_rounds + 1)))
 
-        print(len(series_df['Previsione']))
+        # print(len(series_df['Previsione']))
 
         # Numero di round totali:
         series_df['Periodo'] = range(1, Constants.num_rounds+1)
