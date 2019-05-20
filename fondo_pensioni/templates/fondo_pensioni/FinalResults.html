@@ -15,10 +15,20 @@
 
 		{# Total payoff #}
 		<div class="card bg-light">
-			 Grazie per aver partecipato! 
-			 Adesso si procederà all’estrazione a sorte del vincitore.
-			 Il tuo guadagno potenziale è: {{ player.total_payoff }}
-			
+
+			</p>
+				Grazie per aver partecipato!
+			</p>
+
+			</p>
+				Adesso si procederà all’estrazione a sorte del vincitore.
+			</p>
+
+			<p>
+				Il tuo guadagno espresso in punti è 
+				{{ total_payoff_points|stringformat:".2f" }}
+				({{ total_payoff_euros|stringformat:".2f" }} &euro;).
+			</p>
 		</div>
 
 	</div>

@@ -2,15 +2,20 @@
 {% load otree %}
 
 {% block title %}
-    Final Results
+    Risultati finali
 {% endblock %}
 
 
 {% block content %}
 
+<p>
+	Il tuo guadagno espresso in punti è {{ total_payoff_points }}
+	({{ total_payoff_euros }} euro).
+</p>
 
-Your final payoff is {{ player.payoff }}
+</p>
+	Grazie per aver partecipato!
+</p>
 
-Thank you  for partecipating....
 
 {% endblock %}
