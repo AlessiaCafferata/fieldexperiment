@@ -119,7 +119,8 @@ def build_series(player, group, round_number):
         values_price.append(g.price)
 
     # Hide last price
-    # values_price[-1] = None
+    # if values_price:
+        # values_price[-1] = None
 
     values_price.append(None)
 
@@ -164,8 +165,10 @@ class Investi(Page):
         # print(series_df.shape)
         # print(len(range(2, Constants.num_rounds + 1)))
 
+        print(len(series_df['Previsione']))
+
         # Numero di round totali:
-        series_df['Periodo'] = range(1, Constants.num_rounds + 1)
+        series_df['Periodo'] = range(1, Constants.num_rounds+1)
 
         rn = self.round_number
 
@@ -174,7 +177,7 @@ class Investi(Page):
             # series_df = series_df.iloc[1:, :]
 
         # Taglia la prima riga relativa al periodo 1
-        series_df = series_df.iloc[1:, :]
+        # series_df = series_df.iloc[1:, :]
 
         # print(series_df)
 
@@ -234,23 +237,17 @@ class ResultsWaitPage(WaitPage):
         group = self.group
         players = group.get_players()
 
+        # Usa il contributo dei giocatori **AL ROUND CORRENTE** per calcolare
+        # il prezzo **AL ROUND CORRENTE**.
+        contributions = [p.contribution for p in players]
+        group.price = compute_price(contributions)
+
+        # Per i round dopo il primo, calcola il guadagno (payoff)
         if self.round_number > 1:
 
-            contributions = list()
-
             for p in players:
 
-                player_in_previous_rounds = p.in_previous_rounds()
-                # Il player al round precedente p_tm1 = player at t minus 1
-                p_tm1 = player_in_previous_rounds[
-                    len(player_in_previous_rounds)-1]
-
-                contributions.append(p_tm1.contribution)
-
-            group.price = compute_price(contributions)
-
-            for p in players:
-
+                """
                 player_in_previous_rounds = p.in_previous_rounds()
                 # Il player al round precedente p_tm1 = player at t minus 1
                 p_tm1 = player_in_previous_rounds[
@@ -259,6 +256,10 @@ class ResultsWaitPage(WaitPage):
                 p_tm1.contribution
                 # Calcola il guadagno al turno corrente
                 payoff = compute_payoff(p_tm1.contribution, group.price)
+                """
+
+                # Calcola il guadagno al turno corrente
+                payoff = compute_payoff(p.contribution, group.price)
                 p.payoff = payoff
 
         else:

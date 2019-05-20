@@ -41,7 +41,8 @@
 
 			<div class="col-md-2">
 				Periodo:<br />
-				{{ subsession.round_number|add:"1" }}
+				{% comment %}{{ subsession.round_number|add:"1" }}{% endcomment %}
+				{{ subsession.round_number }}
 			</div>
 
 			<div class="col-md-2">
