@@ -272,11 +272,11 @@ class FinalResults(Page):
         return self.round_number == Constants.num_rounds
 
 page_sequence = [
-    # Introduction,
-    # Controllo1,
-    # Controllo2,
-    # Questionario,
-    # QuestionarioWaitPage,
+    Introduction,
+    Controllo1,
+    Controllo2,
+    Questionario,
+    QuestionarioWaitPage,
     Investi,
     ResultsWaitPage,
     FinalResults,
