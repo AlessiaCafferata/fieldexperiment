@@ -11,6 +11,7 @@ class PlayerBot(Bot):
     def play_round(self):
         # Only on first round
         if self.round_number == 1:
+            """
             yield (pages.Introduction)
             yield (pages.Controllo1,
                    {
@@ -34,6 +35,9 @@ class PlayerBot(Bot):
                        'gender': random.choice(
                            Player._meta.get_field('gender').choices)[0],
                    })
+            """
+
+            pass
 
         # La pagina mostrata ogni volta
         yield (pages.Investi, {'contribution': random.randint(1,100)})
