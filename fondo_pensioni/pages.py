@@ -142,7 +142,6 @@ def build_series(player, group, round_number):
         'data': values_prediction
     }
 
-
     # print(len(series_price['data']))
 
     return [series_prediction, series_price]
@@ -247,19 +246,25 @@ class ResultsWaitPage(WaitPage):
 
             for p in players:
 
-                """
-                player_in_previous_rounds = p.in_previous_rounds()
-                # Il player al round precedente p_tm1 = player at t minus 1
-                p_tm1 = player_in_previous_rounds[
-                    len(player_in_previous_rounds)-1]
+                # Calcola il guadagno al turno corrente usando la previsione
+                # fatta dal giocatore nel turno precedente
 
-                p_tm1.contribution
+                player_in_previous_rounds = p.in_previous_rounds()
+
+                # Il player al round precedente p_tm1 = player at t minus 1
+                # p_tm1 = player_in_previous_rounds[
+                    # len(player_in_previous_rounds)-1]
+                p_tm1 = player_in_previous_rounds[-1]
+
                 # Calcola il guadagno al turno corrente
                 payoff = compute_payoff(p_tm1.contribution, group.price)
-                """
 
+                """
                 # Calcola il guadagno al turno corrente
                 payoff = compute_payoff(p.contribution, group.price)
+                """
+
+                # Salva il guadagno per il giocatore
                 p.payoff = payoff
 
         else:
@@ -282,6 +287,7 @@ class FinalResults(Page):
             'total_payoff_points': total_playoff_points,
             'total_payoff_euros': total_playoff_euros,
         }
+
 
 page_sequence = [
     Introduction,
