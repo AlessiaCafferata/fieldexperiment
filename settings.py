@@ -50,3 +50,5 @@ INSTALLED_APPS = ['otree', 'fondo_pensioni']
 
 # Required for DEBUG = False
 ALLOWED_HOSTS = ['*']
+
+DEBUG = False
