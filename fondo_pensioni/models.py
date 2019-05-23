@@ -31,6 +31,8 @@ class Constants(BaseConstants):
 
     endowment = 1000
 
+    euro_conversion_multiplier = 15
+
 class Subsession(BaseSubsession):
     pass
 
