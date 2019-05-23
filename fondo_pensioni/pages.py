@@ -281,7 +281,7 @@ class FinalResults(Page):
     def vars_for_template(self):
 
         total_playoff_points = self.player.total_payoff
-        total_playoff_euros = 7*float(total_playoff_points)/1300
+        total_playoff_euros = 15*float(total_playoff_points)/1300
 
         return {
             'total_payoff_points': total_playoff_points,
